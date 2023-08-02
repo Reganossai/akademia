@@ -1,102 +1,73 @@
-import React, { useCallback } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
-import image from "../assets/images.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faChartSimple, faGraduationCap, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import image from "../assets/image 1.png";
+import reagan from "../assets/reagan.jpg";
 
-
-const Navbar = ({handleLogout}) => {
+const Navbar = () => {
   const [nav, setNav] = useState(false);
+
   const handleNav = () => {
     setNav(!nav);
   };
 
-  
-
-  const Logout = useCallback(() => {
-    handleLogout()
-  },[handleLogout])
-
   nav
-    ? (document.body.style.overflow = "hidden")
+    ? (document.body.style.overflowX = "hidden")
     : (document.body.style.overflow = "auto");
-
   return (
-  <div>
-     <nav className="navbar navbar-expand-lg">
-      <div className="logo-div">
+    <div className="nav-usa">
+      <nav className="navbar navbar-expand-lg">
         <Link to="/">
           <img src={image} className="logoo" alt="logoo" />
         </Link>
-      </div>
-      <div id="navbarSupportedContent">
-        <ul>
 
-          <li className="nav-link">
-            <NavLink exact activeClassName="active" to="/">
-              Home
-            </NavLink>
-          </li>
-          <li className="nav-link">
-            <NavLink activeClassName="active" to="/arrivals">
-              Arrivals
-            </NavLink>
-          </li>
+        <h2 className="powerfield">Powerfields Group of School</h2>
 
-          <li className="nav-link">
-            <NavLink activeClassName="active" to="/departures">
-              Departures
-            </NavLink>
-          </li>
-
-          <li className="nav-link">
-            <button className="btn btn-info" onClick={Logout}>
-              logout
-            </button>
-          </li>
-        </ul>
-      </div>
-      {nav ? (
-        <div id="navbarSupportedContentMobile">
+        <div id="navbarSupportedContent">
           <ul>
-          <li className="nav-link">
-            <Link exact ClassName="activee" to="/">
-              Home
-            </Link>
-          </li>
-          <li className="nav-link">
-            <Link ClassName="activee" to="/arrivals">
-              Arrivals
-            </Link>
-          </li>
+            <li className="nav-link">
+              <img src={reagan} className="reg" alt="user" />
+              <span className="user-name"> Omoade Mary</span>
+            </li>
 
-          <li className="nav-link">
-            <Link ClassName="activee" to="/departures">
-              Departures
-            </Link>
-          </li>
-
-          <li className="nav-link">
-            <button className="btn btn-info" onClick={Logout}>
-              logout
-            </button>
-          </li>
-
+            <div onClick={handleNav} className="zaracho">
+              {nav ? (
+                <FontAwesomeIcon icon={faXmark} />
+              ) : (
+                <FontAwesomeIcon icon={faBars} />
+              )}
+            </div>
           </ul>
-        </div>
-      ) : null}
 
-      <div onClick={handleNav} className="zaracho">
-        {nav ? (
-          <FontAwesomeIcon icon={faXmark} />
-        ) : (
-          <FontAwesomeIcon icon={faBars} />
-        )}
-      </div>
-    </nav>
-  </div>
+          {nav ? (
+            <div id="navbarSupportedContentMobile">
+              <ul>
+                <li id="dash">
+                  <NavLink activeClassName="active" to="/dashboard">
+                  <span> <FontAwesomeIcon icon={faChartSimple} className="fontawesome-sidebar"/></span> Dashboard
+                  </NavLink>
+                </li>
+                <hr className="hop" />
+                <li id="adm">
+                  <NavLink activeClassName="active" to="/admission">
+                  <span> <FontAwesomeIcon icon={faGraduationCap} className="fontawesome-sidebar"/></span>  Admission
+                  </NavLink>
+                </li>
+
+                <hr className="hop" />
+                <li id="prof">
+                  <NavLink activeClassName="active" to="/login">
+                  <span> <FontAwesomeIcon icon={faUserPen} className="fontawesome-sidebar"/></span>  Profile
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+          ) : null}
+        </div>
+      </nav>
+    </div>
   );
 };
 

@@ -1,75 +1,127 @@
-import React, { useState } from "react";
-import aeroplane from "../assets/aeroplane.jpg";
-import { fetchUserByEmailAndPassword } from "../database";
-import { Link } from "react-router-dom";
+import React from "react";
+import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
 
-const Login = ({ handleToken }) => {
-  const [emailLogin, setEmailLogin] = useState("");
-  const [passwordLogin, setPasswordLogin] = useState("");
-  const [loginStatus, setLoginStatus] = useState("");
+const Login = () => {
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const loggedInUser = fetchUserByEmailAndPassword(emailLogin, passwordLogin);
-    if (loggedInUser) {
-      handleToken(loggedInUser.token);
-    } else {
-      setLoginStatus("Wrong email or password combination");
-    }
+  const history = useHistory();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
+
+  const handleCheckboxChange = (event) => {
+    // Access the new value of the checkbox from the event object
+    const newValue = event.target.checked;
+    // Update the state to track the checkbox value
+    setIsChecked(newValue);
+  };
+
+  const result = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setFormData({
+      email: "",
+      password: "",
+    });
+
+    const body = {
+      email: formData.email,
+      password: formData.password,
+    };
+
+    axios({
+      method: "post",
+      url: "https://kinkiverse.onrender.com/users/signin",
+      data: body,
+    })
+      .then((response) => {
+        const token = response.data.data.token;
+        const saveUserToken = localStorage.setItem("user-token", token);
+        history.push("/prod");
+      })
+      .catch((error) => {
+        console.log(error);
+        setMessage("Wrong username/password combination");
+        setLoading(false);
+      });
+  };
+
+  if (loading) {
+    return (
+      <h1 className="login-loading">
+        Please wait while your login credentials are being validated
+      </h1>
+    );
+  }
+
   return (
     <div className="login-div">
-      <div class="bg"></div>
+      <div className="bg"></div>
       <div className="bgg">
-        <h1>Login</h1>
-      <form>
-        <div className="form-group">
-          <label for="inputUsername">Username</label>
-          <input
-            type="text"
-            name="emailLogin"
-            value={emailLogin}
-            onChange={(e) => {
-              setEmailLogin(e.target.value);
-            }}
-            className="form-control"
-            id="inputEmail"
-            placeholder="Enter Email"
+        <div className="login-header">
+          <img
+            src="https://s3-alpha-sig.figma.com/img/3d3d/4674/322bf368d5461362a8ce46f551647e93?Expires=1691971200&Signature=JWmP8Maf3cRiJEqDIAr93zMTJMbOq90Zi7Ub6rE8Q~SyLpKaK9C4imMXEqKCQiIWETwrzX5e3Rab6dUYJXcku70v1G1On8hg31EW5nQbbXDVurvjNPEBg3F9io4vEZpB0UCr07oei28wUiRvz44hE5uqAboNJ7sECLr2vswJBwhLynJXp1meeT8ibnfZNf3fxeORYzV9ASxPpP4YsCrr1TXkts0QDgXvSHRiKI4R4ZonDGfqbPk~1TcivL7IfUjfvi~4lTMVwRDChRtaQNgTv3NnIfAPVioW1X79~~Y42eivx7eLDEi2qeAnDr124CGv3BhYKj1zpx7axenz0zTh~A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+            className="akademia"
+            alt="background"
           />
+          <h2>Login</h2>
         </div>
-        <div className="form-group">
-          <label for="inputPassword">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            name="passwordLogin"
-            value={passwordLogin}
-            onChange={(e) => {
-              setPasswordLogin(e.target.value);
-            }}
-            id="inputPassword"
-            placeholder="Password"
-          />
-          <small id="passwordHelp" className="passwordHelp">
-            We'll never share your password with anyone else.
-          </small>
-        </div>
+        <form>
+          <div className="inp-1">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              placeholder="Enter your Email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
 
-        <h1 className="guk">{loginStatus}</h1>
-        <button
-          onClick={handleLogin}
-          type="submit"
-          id="sub-btn"
-          className="btn btn-primary"
-        >
-          Login
-        </button>
-        <br />
+          <div className="inp-2">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+              required
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="inp-3">
+            <input
+              type="checkbox"
+              required
+              checked={isChecked} // Use the state variable to determine the checked status
+              onChange={handleCheckboxChange}
+            />
+               {/* <p>Checkbox is {isChecked ? 'checked' : 'unchecked'}</p> */}
 
-        <div className="kupa">
-          <Link to="/register">Don't have an account yet? Sign up here</Link>
-        </div>
-      </form>
+            <h4>Remember me</h4>
+            <h5><Link to="">Forgot password?</Link></h5>
+          </div>
+          <button id="login-btn" className="btn btn-primary">Login</button>
+          <div className="login-to-reg">
+          <Link to="/signup" >Create account</Link>
+          </div>
+           </form>
       </div>
     </div>
   );

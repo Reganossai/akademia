@@ -1,144 +1,138 @@
-import React, { useCallback, useState } from "react";
-import { saveUserOnRegister } from "../database";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = useCallback(() => {
-    const res = saveUserOnRegister({
-      firstname,
-      lastname,
-      email,
-      password,
-      address,
-      city,
-      state,
+  const history = useHistory();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    fullname: "",
+  });
+
+  const result = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setFormData({
+      fullname: "",
+      email: "",
+      password: "",
     });
 
-    if (res === true) {
-      setSuccess(true);
-    } else {
-      alert(res);
-    }
-  }, [firstname, lastname, email, password, address, city, state]);
+    const body = {
+      fullname: formData.fullname,
+      email: formData.email,
+      password: formData.password,
+    };
+
+    axios({
+      method: "post",
+      url: "https://kinkiverse.onrender.com/users/signup",
+      data: body,
+    })
+      .then((response) => {
+        if (response.data.success === true) {
+          console.log(response.data);
+          history.push("/registrationsuccessfull");
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(
+          "User Sign up failed due to some reason. Make sure you provided a valid email/password. This could also be as a result that the email/phone number provided is already taken"
+        );
+        setLoading(false);
+      });
+  };
+
+  if (loading) {
+    return (
+      <h1 className="login-loading">
+        Please wait while your input is being validated
+      </h1>
+    );
+  }
 
   return (
     <div className="register-div">
-      <div class="bg"></div>
+      <div className="bg"></div>
       <div className="bgg">
-      <h1>Sign Up</h1>
-      {success ? (
-        <>
-          <h1 className="kug">Successful</h1>
-          <div className="kuga">
-          <Link to="/login">click here to login</Link>
-          </div>
-        </>
-      ) : (
-        <form>
-          <div class="form-group">
-            <label for="inputFirstname">First name</label>
+        <div className="register-header">
+          <img
+            src="https://s3-alpha-sig.figma.com/img/3d3d/4674/322bf368d5461362a8ce46f551647e93?Expires=1691971200&Signature=JWmP8Maf3cRiJEqDIAr93zMTJMbOq90Zi7Ub6rE8Q~SyLpKaK9C4imMXEqKCQiIWETwrzX5e3Rab6dUYJXcku70v1G1On8hg31EW5nQbbXDVurvjNPEBg3F9io4vEZpB0UCr07oei28wUiRvz44hE5uqAboNJ7sECLr2vswJBwhLynJXp1meeT8ibnfZNf3fxeORYzV9ASxPpP4YsCrr1TXkts0QDgXvSHRiKI4R4ZonDGfqbPk~1TcivL7IfUjfvi~4lTMVwRDChRtaQNgTv3NnIfAPVioW1X79~~Y42eivx7eLDEi2qeAnDr124CGv3BhYKj1zpx7axenz0zTh~A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+            className="akademia"
+            alt="background"
+          />
+          <h2>Sign Up</h2>
+        </div>
+        <form onSubmit={result}>
+          <div className="inp-4 ">
+            <label htmlFor="city">Full Name</label>
             <input
               type="text"
-              onChange={(e) => setFirstname(e.target.value)}
-              class="form-control"
-              placeholder="First name"
-              name="firstname"
+              placeholder="Enter Full Name"
+              name="fullname"
+              required
+              value={formData.fullname}
+              onChange={handleChange}
             />
           </div>
-          <div class="form-group col-md-6">
-            <label for="inputLastname">Lastname</label>
+
+          <div className="inp-1">
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              onChange={(e) => setLastname(e.target.value)}
-              class="form-control"
-              placeholder="Last name"
-              name="lastname"
+              type="email"
+              placeholder="Enter Email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
             />
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="inputEmail">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                class="form-control"
-                id="inputEmail"
-                placeholder="Email"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="inputPassword">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                class="form-control"
-                id="inputPassword4"
-                placeholder="Password"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputAddress">Address</label>
+
+          <div className="inp-2">
+            <label htmlFor="password">Password</label>
             <input
-              type="text"
-              onChange={(e) => setAddress(e.target.value)}
-              class="form-control"
-              id="inputAddress"
-              placeholder="Enter home address"
-              name="address"
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+              required
+              value={formData.password}
+              onChange={handleChange}
             />
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="inputCity">City</label>
-              <input
-                type="text"
-                onChange={(e) => setCity(e.target.value)}
-                class="form-control"
-                id="inputCity"
-                name="city"
-              />
-            </div>
-            <div class="form-group col-md-4">
-              <label for="inputState">State</label>
-              <input
-                type="text"
-                onChange={(e) => setState(e.target.value)}
-                id="inputState"
-                class="form-control"
-                name="state"
-              />
-            </div>
-          </div>
-          <button
-            onClick={handleRegister}
-            type="submit"
-            id="sub-btn"
-            class="btn btn-primary"
-          >
-            Register
-          </button><br/>
-          <div className="kupa">
-          <Link to="/login">Already have an account? sign in</Link>
+          <button id="login-btn" className="btn btn-primary">
+            Sign Up
+          </button>
+          <div className="reg-to-login">
+            <Link className="first-link" to="/login">
+              Have an account?
+            </Link>{" "}
+            <span className="register-login-span">
+              <Link to="/login">Login</Link>
+            </span>
           </div>
         </form>
-        
-      )}
       </div>
     </div>
   );
 };
+
 export default Register;

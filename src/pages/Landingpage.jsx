@@ -1,29 +1,26 @@
-import React from "react";
-import LandingNavbar from "../components/LandingNavbar";
-
+import React from 'react';
+import { Link } from 'react-router-dom';
+import image from "../assets/image 1.png"
 
 const Landingpage = () => {
   return (
-    <div className="landingpage-div">
-      <LandingNavbar />
-      <div className="bg"> </div>
-      <div className="homepage">
-        <h1>
-          <b> Hello,</b>
-        </h1>
-        <h2>
-          <b>Welcome Aboard, Thanks for choosing Reagan</b>
-        </h2>
-        <h3>This is the landing page of Reagan Airlines</h3>
-        <h3>
-          This airline was built in 2023 and serves as a route through which
-          several individuals travel through air .The airport provides both
-          national and international aircraft services efficiently on a daily
-          basis.<br/> <b>Fasten up your seatbelts, Fly Reagan.</b>
-        </h3>
-      </div>
-    </div>
-  );
-};
+    <div className='login-div'>
+        <div className='bg'></div>
+        <div className='bgg'>
+            <img src={image} className="aka" alt='opp'/>
+            <h1 className='aka-1'><Link to='/login'>Login</Link></h1>
+            
+            <h1 className='aka-2'><Link to='/signup'>Register</Link></h1>
+            
+            <h1 className='aka-3'><Link to='/dashboard'>Dashboard</Link></h1>
+     
+            <h1 className='aka-4'><Link to='/admission'>Admission</Link></h1>
 
-export default Landingpage;
+            
+        </div>
+
+    </div>
+  )
+}
+
+export default Landingpage

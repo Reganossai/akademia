@@ -1,26 +1,63 @@
 * {
-  margin: 0px;
-  padding: 0px;
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.bg {
+  background-image: url("https://s3-alpha-sig.figma.com/img/6879/7f6c/84f4b00ffa845154f7ca23fa27a50779?Expires=1691971200&Signature=bY-RF~2yZ4aQfKOIp927M59CFgveMy5MbS0f55M58nvmre80k-uYYTh673TIZNoVCOYZy-XBRs3MT9-wEII6i1CHX~25xNN76DCiYVE-dpcPxbqyD40UYFMSrKucmHHS600JhpUILq2Jp-k2P2L38sAvHM5ex6dBXlK1yt77xo5CXMnZVRxvfeFRKYog50Jpy9-LNrfRRaA36IsXYb~eGf7R683lYsRloYkAnmTeRrdvoyA~pAI7CqvOYkP57kOyioshI~udSem51iBGJZ2wie4vmjs7RkVkVfo7zpEcX-QsAaPdfFxlMHsBSb--O37E32zxXC6dHj~4cRaydplBYQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  object-fit: fill;
+
+}
+
+.bgg {
+  z-index: 1;
+  background-color: white;
+  width: 350px;
+  position: absolute;
+  top: 150px;
+  left: 510px;
+  padding: 35px 5px 50px 5px;
+  border-radius: 15px;
+}
+
+.aka{
+  margin: 0px 0px 20px 0px;
+}
+
+.aka-1 a{
+  text-decoration: none;
+  margin: 30px 0px 10px 80px;
+  color: black;
+  font-family: monospace;
 }
 
 
-
-hr {
-  width: 1100px;
-  margin-left: 110px;
-  margin-top: -15px;
-
-}
-
-.homepage {
-  display: none;
+.aka-2 a{
+  text-decoration: none;
+  margin: 30px 0px 10px 80px;
+  color: black;
+  font-family: monospace;
 }
 
 
-.guk {
-  color: darkred;
-  font-size: 20px;
+.aka-3 a{
+  text-decoration: none;
+  margin: 30px 0px 10px 80px;
+  color: black;
+  font-family: monospace;
+}
+
+.aka-4 a{
+  text-decoration: none;
+  margin: 30px 0px 10px 80px;
+  color: black;
+  font-family: monospace;
 }
 
 .login-div {
@@ -28,472 +65,632 @@ hr {
   z-index: 1;
   margin-top: -20px;
   width: 100%;
-  height: 150vh;
+  height: 110vh;
+
 }
-
-.landingpage-div{
-  position: relative;
-  z-index: 1;
-  margin-top: -20px;
-  width: 100%;
-  height: 150vh;
-}
-
-.landingpage-div .bg{
-  position: absolute;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-  background-image: url("./assets/ae.jpg");
-  background-size: cover;
-  background-position: center;
-  object-fit: fill;
-  opacity: 0.2;
-}
-
-
-
-
 
 .register-div {
   position: relative;
   z-index: 1;
   margin-top: -20px;
   width: 100%;
-  height: 150vh;
-}
-
-.register-div .bg{
-  position: absolute;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-  background-image: url("./assets/airr.jpg");
-  background-size: cover;
-  background-position: center;
-  object-fit: fill;
-  opacity: 0.6;
-}
-
-
-#passwordHelp{
-  color: black;
-}
-
-.login-div .bg {
-  position: absolute;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-  background-image: url("./assets/airr.jpg");
-  background-size: cover;
-  background-position: center;
-  object-fit: fill;
-  opacity: 0.6;
-}
-
-.login-div .bgg {
-  position: relative;
-  z-index: 1;
-}
-
-
-
-.kug {
-  color: green;
-}
-
-.kuga {
-  margin: 50px 0px 0px 580px;
+  height: 110vh;
 
 }
 
-.kuga a {
+.akademia {
+  width: 200px;
+}
+
+.login-header {
+  display: flex;
+}
+
+.register-header {
+  display: flex;
+  margin: 0px 0px 30px 0px;
+}
+
+.login-header img {
+  width: 100px;
+  height: 30px;
+  margin: 5px 0px 0px 20px;
+}
+
+.register-header img {
+  width: 100px;
+  height: 30px;
+  margin: 5px 0px 0px 20px;
+}
+
+.login-header h2 {
+  font-size: 20px;
+  width: fit-content;
+  margin: 5px 30px 0px 140px;
+}
+
+.register-header h2 {
+  font-size: 20px;
+  width: fit-content;
+  margin: 5px 30px 0px 110px;
+}
+
+.inp-1 {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0px 0px 20px;
+}
+
+.inp-1 input::placeholder {
+  color: darkgray;
+}
+
+
+.inp-1 input::placeholder {
+  color: darkgray;
+}
+
+
+.inp-1 input {
+  width: 300px;
+  border-radius: 5px;
+  margin: 5px 0px 0px 0px;
+  padding: 5px 0px 5px 10px;
+  border-color: lightblue;
+  border-width: thin;
+}
+
+
+.inp-2 {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px 0px 20px;
+}
+
+
+.inp-2 input {
+  width: 300px;
+  border-radius: 5px;
+  margin: 5px 0px 0px 0px;
+  padding: 5px 0px 5px 10px;
+  border-color: lightblue;
+  border-width: thin;
+}
+
+.inp-3 {
+  display: flex;
+  margin: 20px 0px 0px 18px;
+}
+
+.inp-3 input {}
+
+.inp-3 h5 {
+  font-size: 15px;
+  margin: 0px 0px 0px 65px;
+}
+
+.inp-3 a {
   text-decoration: none;
-  
-
 }
 
-.kupa {
-  margin: 10px 0px 0px 400px;
-  
+.inp-3 h4 {
+  font-size: 15px;
+  margin: 0px 0px 0px 5px;
 }
 
-.kupa a{
+
+.inp-4 {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0px 0px 20px;
+}
+
+.inp-4 input::placeholder {
+  color: darkgray;
+}
+
+
+.inp-4 input::placeholder {
+  color: darkgray;
+}
+
+
+.inp-4 input {
+  width: 300px;
+  border-radius: 5px;
+  margin: 5px 0px 0px 0px;
+  padding: 5px 0px 5px 10px;
+  border-color: lightblue;
+  border-width: thin;
+}
+
+
+#login-btn {
+  width: 130px;
+  margin: 40px 0px 0px 20px;
+}
+
+.login-to-reg {
+  margin: -35px 0px 0px 210px;
+}
+
+label {
+  font-weight: 600;
+}
+
+.login-to-reg a {
   color: black;
 }
 
-.background {
-  position: absolute;
-  top: 0;
-  z-index: -1;
+.reg-to-login {
+  margin: -35px 0px 0px 190px;
 }
 
-.background img {
-  width: 100%;
-  height: 100%;
-  opacity: 0.4;
+
+.reg-to-login a {
+  color: black;
+  font-size: 12px;
+
 }
 
-.airplane {
-  width: 1000px;
-  opacity: 0.2;
-  margin: 0px 0px 0px 100px;
+.reg-to-login .first-link {
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.form-group {
-  z-index: 99;
-  margin: 0px 0px 0px 400px;
-  position: relative;
-}
-
-.form-group input {
-  width: 500px;
-}
-
-h1 {
-  margin: 20px 0px 0px 550px;
-}
-
-#sub-btn {
-  margin: 20px 0px 0px 400px;
+.register-login-span {
+  text-decoration: dashed;
+  font-weight: 600;
 }
 
 
 
 /* DASHBOARD */
+.navbar {
+  z-index: 99;
+  height: 80px;
+	box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
+}
 
 .logoo {
-  width: 120px;
-}
+  margin: 5px 0px 0px 10px;
 
-nav {
-  display: flex;
-  flex-direction: row;
-  
-}
-
-.navbar-questions-solutions {
-  display: flex;
-  flex-direction: column;
-
-}
-
-.logo-div {
-  margin: 0px 0px 0px 20px;
 }
 
 #navbarSupportedContent {
-  margin: 5px 0px 0px 650px;
+  margin: 15px 0px 0px 600px;
 }
 
 #navbarSupportedContent ul {
   display: flex;
-  flex-direction: row;
 }
 
-#navbarSupportedContent a {
-  text-decoration: none;
-  margin: 0px 10px 0px 10px;
-  padding: 7px 15px 7px 15px;
-  font-weight: 400;
+
+#navbarSupportedContentMobile{
+  display: none;
+}
+
+.reg {
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+}
+
+.powerfield {
+  padding: 0px 0px 0px 10px;
+  margin: 0px 0px 0px 60px;
   font-size: 20px;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-.nav-link {
-  list-style-type: none;
-
-}
-
-.active {
-  border-bottom: 5px solid black;
-}
-
-
-/* ARRIVALS AND DEPARTURES*/
-.arrival-div h5 {
-  display: none;
-}
-
-.departure-div h5 {
-  display: none;
-
-}
-
-
-td,
-th{
-  width: 300px;
-  text-align: center;
-  border: 1px solid black;
-  padding: 5px;
-}
-
-table {
-  border-spacing: 0 15px;
-  margin: 0px 0px 0px 30px;
-}
-
-.dashboard h2 {
-  color: #B6D0E2;
-  font-size: 25px;
-  text-align: center;
-  margin: 30px 0px 25px 0px;
-
+  font-weight: 700;
+  border-left: 3px solid orange;
 }
 
 .zaracho {
   display: none;
+
 }
 
-#login-landing{
-  margin-right: 20px;
+.user-name {
+  font-weight: 600;
+  margin: 0px 0px 0px 10px;
 }
 
-#login-landing a{
-  color: white;
+.sidebar-div {
+  width: 200px;
+  height: 150vh;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+	box-shadow: 1px 15px 20px rgba(0, 0, 0, 0.1);
 }
 
-#register-landing a{
+.sidebar-div ul{
+  margin: 130px 0px 0px 0px;
+
+}
+
+.sidebar-div li{
+  list-style-type: none;
+  margin: 40px 0px 40px 0px;
+  width: fit-content;
+  
+}
+
+.sidebar-div a{
+  text-decoration: none;
+  width: fit-content;
+  padding: 7px 20px 7px 20px ;
   color: black;
+  font-weight: 500;
 }
 
-
-.footer-div {
-  background-color: black;
-  display: flex;
-  flex-direction: row;
-  margin-top: 100px;
-  height: 380px;
+.fontawesome-sidebar{
+  margin: 0px 5px 0px 0px;
 }
 
-.footer-div h1 {
-  margin: 20px 0px 0px 80px;
-  width: 800px;
-  font-family: courier;
+.ovrl {
+  position: absolute;
+  top: 80px;
+  left: 200px;
+  width: 1149px;
+  height:137vh;
+  background-color: #faf9f6;
 }
 
-.footer-div img {
-  width: 100px;
-  height: 80px;
+.ovrl h1{
+  margin: 50px 0px 0px 20px;
+}
+
+.ovrl h6{
+  margin: 10px 0px 0px 20px;
+  color:#787878;
+}
+
+.ovrl p{
+  width: 820px;
+  font-size: 15px;
+  margin: 20px 0px 0px 20px;
+  padding: 100px 30px 100px 30px;
+  background-color: white;
   border-radius: 20px;
-  margin: 20px 0px 10px 50px;
+	box-shadow: 10px 15px 20px rgba(0, 0, 0, 0.1);
+  color: red;
+}
+
+.admission-status{
+  background-color: #1877F2;
+  color: white;
+  width: 500px;
+  margin: 40px 0px 0px 20px;
+  padding: 20px 0px 20px 15px;
+  border-radius: 10px;
+}
+
+.admission-status h4{
+  font-size: 20px;
+ 
+}
+
+.hawai{
+  color: darkgray;
+}
+
+.admission-status a{
+  color: white;
 
 }
+
+.admission-status-flex{
+  display: flex;
+  width: fit-content;
+}
+
+.general-info{
+  background-color: white;
+  border: 1px solid #B0B0B0;
+  border-radius: 10px;
+  width: 350px;
+  height: 130px;
+  margin: 50px 0px 0px 40px;
+  padding: 50px 20px 0px 20px;
+  border-top: 10px solid #1877F2;;
+}
+
+.general-info h4{
+  font-size: 15px;
+}
+
+.sidebar-div a.active{
+  color: white;
+  background-color: #1877F2;
+  border-radius: 7px;
+ 
+}
+
+#menu-menu ul{
+  display: flex;
+  margin: 20px 0px 0px 10px;
+  padding: 2px 0px 3px 0px;
+  width: fit-content;
+
+  border-bottom: 1px solid #787878;
+}
+
+#menu-menu li{
+  list-style-type: none;
+  margin: 20px 100px 0px 20px;
+}
+
+#menu-menu a{
+  text-decoration: none;
+  color: black;
+  font-weight: 400;
+}
+
+#menu-menu a.active{
+  border-bottom: 5px solid #1877F2;
+}
+
+.three-flex{
+  display: flex;
+  margin: 10px 0px 20px 0px;
+}
+
+#bt-next{
+  margin: 30px 0px 0px 30px;
+  width: 150px;
+}
+
+#bt-next a{
+  color: white;
+  text-decoration: none;
+}
+
+
 
 
 @media only screen and (max-width: 800px) {
+  /* NAVBAR */
+
+  .navbar{
+    display: flex;
+    width: 100%;
+  }
+
+  .logoo {
+    margin: 3px 0px 0px 50px;
+    width: 100px;
+  
+  }
+  
+  #navbarSupportedContent {
+    margin: 15px 0px 0px 0px;
+  }
+  
+  #navbarSupportedContent ul {
+    display: flex;
+  }
+
+  #navbarSupportedContentMobile{
+    display: block;
+  }
+  
+  #navbarSupportedContentMobile ul{
+    position: absolute;
+    top: 0;
+    left: 0px;
+    background-color:#1877F2;
+    z-index: 90;
+    width: 80%;
+    height: 100vh;
+    padding: 50px 0px 20px 0px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  
+  #navbarSupportedContentMobile li{
+    margin: 20px 0px 20px 50px;
+    list-style-type: none;
+    width: fit-content;
+  } 
+
+  #navbarSupportedContentMobile a{
+    font-size: 20px;
+    text-decoration: none;
+    color: #FFFFFF;
+
+
+  }
+
+  .hop{
+    width: 300px;
+    color: white;
+    margin: 0px 10px 0px 10px;
+  }
+  
+  .reg {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    margin: 0px 30px 0px 0px;
+  }
+  
+  .powerfield {
+    padding: 0px 0px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    font-size: 10px;
+    font-weight: 700;
+    border-left: 3px solid orange;
+  }
+  
   .zaracho {
     display: block;
-    margin-right: 40px;
-  }
-
-  .arrival-div{
-    width: 100%;
-    height: 250vh;
-    overflow-y: hidden;
-  }
-
-  .arrival-div h5 {
-    display: block;
-    color: #B6D0E2;
-    margin: 15px 0px 15px 130px;
-
-  }
-
-  .departure-div h5 {
-    display: block;
-    color: #B6D0E2;
-    margin: 15px 0px 15px 130px;
-
-  }
-
-  .logo-div img {
-    width: 100px;
-    border-radius: 20px;
-  }
-
-  #navbarSupportedContent {
-    display: none;
-  }
-
-  #navbarSupportedContentMobile {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 95px;
-    left: 0;
-    right: 0;
-    z-index: 99;
-    margin: 0 auto;
-    width: 100%;
-    height: 100vh;
-    background-color: whitesmoke;
-  
-  }
-
-  #navbarSupportedContentMobile li a {
-    color: darkblue;
-    text-decoration: none;
-    margin: 30px 0px 30px 0px;
-    border-width: 400px;
-  }
-
-  #navbarSupportedContentMobile button {
-    margin: 10px 0px 30px 0px;
-
-
-  }
-
-  .landingpage-div{
-    width: 100%;
-    height: 100vh;
-    margin: 0 auto;
-    
-
-  }
-
-  .homepage {
-    display: block;
-    width: 380px;
-    margin: 25px 0px 0px 20px;
-  }
-
-  .homepage h1 {
-    margin: 0px 0px 10px 0px;
-    font-size: 38px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  .homepage h2 {
-    margin: 0px 0px 10px 0px;
-    font-size: 35px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #B6D0E2;
-  }
-
-  .homepage h3 {
-    width: 340px;
-    font-size: 17px;
-    color: #808080;
-  }
-
-
-
-
-  hr {
-    display: none;
-  }
-
-  nav {
-    background-color: #B6D0E2;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  td {
-    width: 500px;
-
-  }
-
-  table {
-    margin: 0px 10px 30px 10px;
-  }
-
-  .dashboard {
-    width: 100%;
-    height: 300vh;
-
-  }
-
-  .footer-div {
-    display: flex;
-    flex-direction: column;
-    margin: 0px auto;
-    height: 800px;
-    padding-bottom: 80px;
-    width: 100%;
-  }
-
-  .footer-div h1 {
-    margin: 20px 5px 0px 5px;
-    width: 390px;
-    font-family: courier;
-    color: antiquewhite;
+    position: absolute;
+    left: 10px;
+    top: 25px;
     font-size: 20px;
+    font-weight: 700;
+    z-index: 99;
+  
   }
-
-  .footer-div img {
-    width: 100px;
-    height: 80px;
-    border-radius: 20px;
-    margin: 20px 0px 20px 120px;
-
-  }
-
-
-  .airplane {
+  
+  .user-name {
     display: none;
+    font-size: 10px;
+    font-weight: 600;
+    margin: 0px 0px 0px 0px;
   }
-
-  .nav-link a {
-    color: black;
+ 
+  /* LOGIN AND REGISTER */
+  .bgg{
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    width: 300px;
+    position: absolute;
+    top: 150px;
+    left: 40px;
+    padding: 35px 5px 50px 5px;
+    border-radius: 15px;
+  
   }
 
   
-  .register-div {
-    width: 100%;
-    margin: 0 auto;
-    height: 100vh;
-    padding: 0px 10px 0px 0px;
-  }
-
-  .register-div h1 {
-    margin: 0px 0px 20px 130px;
-    padding-top: 40px;
-  }
-
-  .login-div {
-    width: 100%;
-    margin: 0 auto;
-    height: 100vh;
-    padding: 0px 10px 0px 0px;
-  }
-
-  
-  .login-div h1 {
-    margin: 0px 0px 20px 160px;
-    padding-top: 40px;
-  }
-
-  .form-group {
-    margin: 0px 0px 0px 10px;
-    
-  }
-
-  .form-group input {
-    width: 380px;
-  }
-
-  #sub-btn {
-    margin: 0px 0px 0px 10px;
-  }
-
-  .kupa {
-    margin: 10px 0px 0px 10px;
-    
-  }
-
-  .guk {
-    color: darkred;
-    font-size: 15px;
-    
-  }
+.inp-1 input {
+  width: 250px;
+  border-radius: 5px;
+  margin: 5px 0px 0px 0px;
+  padding: 5px 0px 5px 10px;
+  border-color: lightblue;
+  border-width: thin;
+}
 
 
+.inp-2 {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px 0px 20px;
+}
 
-  .kuga {
-    margin: 50px 0px 0px 100px;
-  }
+
+.inp-2 input {
+  width: 250px;
+  border-radius: 5px;
+  margin: 5px 0px 0px 0px;
+  padding: 5px 0px 5px 10px;
+  border-color: lightblue;
+  border-width: thin;
+}
+
+.inp-4 input {
+  width: 250px;
+  border-radius: 5px;
+  margin: 5px 0px 0px 0px;
+  padding: 5px 0px 5px 10px;
+  border-color: lightblue;
+  border-width: thin;
+}
+
+
+.login-header h2 {
+  font-size: 20px;
+  width: fit-content;
+  margin: 5px 30px 0px 70px;
+}
+
+
+.register-header h2 {
+  font-size: 20px;
+  width: fit-content;
+  margin: 5px 30px 0px 60px;
+}
+
+
+.login-to-reg {
+  margin: 5px 0px 0px 25px;
+}
+
+
+.sidebar-div{
+  display: none;
+}
+
+
+.ovrl{
+  position: absolute;
+  top: 80px;
+  left: 0px;
+  width: 100%;
+  height: 137vh;
+}
+
+
+/* DASHBOARD */
+
+.admission-status{
+  width: 320px;
+}
+
+.general-info{
+  width: 320px;
+  margin: 30px 0px 0px 20px;
+}
+.admission-status-flex{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+}
+
+
+/* ADMISSION */
+
+#menu-menu ul{
+  display: flex;
+  margin: 20px 0px 0px 0px;
+  padding: 2px 0px 3px 0px;
+  width: fit-content;
+  border-bottom: 1px solid #787878;
+}
+
+#menu-menu li{
+  list-style-type: none;
+  margin: 20px 0px 0px 10px;
+}
+
+#menu-menu a{
+  text-decoration: none;
+  color: black;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ovrl p{
+  width: 90%;
+  font-size: 15px;
+  margin: 20px 10px 0px 20px;
+  padding: 100px 30px 100px 30px;
+  background-color: white;
+  border-radius: 20px;
+	box-shadow: 10px 15px 20px rgba(0, 0, 0, 0.1);
+  color: red;
+
+}
+
+
+.three-flex{
+  display: flex;
+  flex-direction: column;
+  margin: 0px 0px 0px 40px;
+}
+
+.pass{
+  margin: 0px 0px 0px 40px;
+}
+
+
+#bt-next{
+  margin: 70px 0px 0px 50px;
+  width: 150px;
 }

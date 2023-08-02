@@ -1,22 +1,27 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import Arrivaltable from "../components/Arrivaltable";
-import Departuretable from "../components/Departuretable";
-import Footer from '../components/Footer';
+import Sidebar from "../components/Sidebar";
+import { Link } from "react-router-dom";
 
-
-
-const Dashboard = ({ handleLogout}) => {
+const Dashboard = () => {
   return (
-    <div className="dashboard">
-      <Navbar  handleLogout={handleLogout}/>  
-      <hr/>
-      <h2>Arrivals(Frankfurt International Airport (EDDF))</h2>
-      <Arrivaltable />
-
-      <h2>Departures(Frankfurt International Airport (EDDF))</h2>
-      <Departuretable/>
-      <Footer/>
+    <div className="dashboard-div">
+      <Navbar />
+      <Sidebar />
+      <div className="ovrl">
+        <h1>Welcome, James!</h1>
+        <h6>Start Managing your Admission Process</h6>
+        <div className="admission-status-flex">
+          <div className="admission-status">
+            <h4>Admission Status</h4>
+            <h4 className="hawai">No Admission Data</h4>
+            <Link to="/admission">Apply Now</Link>
+          </div>
+          <div className="general-info">
+            <h4>The school General Info will appear here</h4>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
