@@ -289,6 +289,14 @@ label {
 
 }
 
+.login-loading{
+  text-align: center;
+  margin-top: 20%;
+  height: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+}
+
 .user-name {
   font-weight: 600;
   margin: 0px 0px 0px 10px;
@@ -696,4 +704,23 @@ label {
   width: 150px;
 }
 
+
+.login-loading{
+  margin-top: 50%;
+}
+
+.wrong-pass{
+  margin: 15px 0px 0px 15px;
+  font-size: 13px;
+ font-weight: bold;
+ color: crimson;
+}
+
+.user-exists{
+  font-weight: bold;
+  color: crimson;
+  width: 300px;
+  font-size: 13px;
+  margin: 20px 0px 0px 15px;
+}
 }

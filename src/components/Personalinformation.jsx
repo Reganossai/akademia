@@ -145,7 +145,7 @@ const Personalinformation = () => {
                 onChange={handleChange}
               />
             </div>
-          </div>
+          </div>  
           <div className="inp-2">
             <div className="pass">
               <label htmlFor="passport">Upload Passport</label>

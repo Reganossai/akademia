@@ -9,6 +9,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const history = useHistory();
 
@@ -29,11 +30,7 @@ const Register = () => {
   const result = (e) => {
     e.preventDefault();
     setLoading(true);
-    setFormData({
-      fullname: "",
-      email: "",
-      password: "",
-    });
+    
 
     const body = {
       fullname: formData.fullname,
@@ -43,22 +40,31 @@ const Register = () => {
 
     axios({
       method: "post",
-      url: "https://kinkiverse.onrender.com/users/signup",
+      url: "http://localhost:8080/register",
       data: body,
     })
       .then((response) => {
-        if (response.data.success === true) {
-          console.log(response.data);
-          history.push("/registrationsuccessfull");
-        } else {
+        console.log(response.data);
+        if (response.data.message === "User Already Exists") {
+          setMessage('User With The Email Inputed Already Exists');
         }
-      })
+        if(response.data.message === "User registered successfully."){
+          history.push('/login');
+        }
+        }
+      )
       .catch((error) => {
-        console.log(error);
-        toast.error(
-          "User Sign up failed due to some reason. Make sure you provided a valid email/password. This could also be as a result that the email/phone number provided is already taken"
-        );
+        console.error(error);
+
+      })
+      .finally(() => {
         setLoading(false);
+        setFormData({
+          fullname: "",
+          email: "",
+          password: "",
+        });
+        
       });
   };
 
@@ -118,13 +124,14 @@ const Register = () => {
               onChange={handleChange}
             />
           </div>
+          <p className="user-exists">{message}</p>
           <button id="login-btn" className="btn btn-primary">
             Sign Up
           </button>
           <div className="reg-to-login">
             <Link className="first-link" to="/login">
               Have an account?
-            </Link>{" "}
+            </Link>
             <span className="register-login-span">
               <Link to="/login">Login</Link>
             </span>

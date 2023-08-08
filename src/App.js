@@ -10,10 +10,14 @@ import Guardianinformation from "./components/Guardianinformation";
 import Previouseducation from "./components/Previouseducation";
 import Landingpage from "./pages/Landingpage";
 
+import { ToastContainer } from "react-toastify";
+
 function App() {
 
   return (
+    
     <div className="App">
+    <ToastContainer />
         <BrowserRouter>
           <Switch>
           <Route exact path="/">

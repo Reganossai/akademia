@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 
 const Login = () => {
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const history = useHistory();
@@ -34,10 +35,7 @@ const Login = () => {
   const result = (e) => {
     e.preventDefault();
     setLoading(true);
-    setFormData({
-      email: "",
-      password: "",
-    });
+   
 
     const body = {
       email: formData.email,
@@ -46,18 +44,30 @@ const Login = () => {
 
     axios({
       method: "post",
-      url: "https://kinkiverse.onrender.com/users/signin",
+      url: "http://localhost:8080/login",
       data: body,
     })
       .then((response) => {
-        const token = response.data.data.token;
-        const saveUserToken = localStorage.setItem("user-token", token);
-        history.push("/prod");
+        // const token = response.data.data.token;
+        // const saveUserToken = localStorage.setItem("user-token", token);
+
+        setLoading(false);
+        console.log(response.data);
+        if (response.data.message === "Invalid password") {
+          setMessage("wrong username/password combination");
+        }
+        if (response.data.message === "User Doesn't exist") {
+          setMessage("User Doesn't exist");
+        }
+        if (response.data.message === "logged in successfully") {
+          history.push("/dashboard");
+        }
       })
       .catch((error) => {
         console.log(error);
-        setMessage("Wrong username/password combination");
+      }) .finally(() => {
         setLoading(false);
+        
       });
   };
 
@@ -81,7 +91,7 @@ const Login = () => {
           />
           <h2>Login</h2>
         </div>
-        <form>
+        <form onSubmit={result}>
           <div className="inp-1">
             <label htmlFor="email">Email</label>
             <input
@@ -105,23 +115,27 @@ const Login = () => {
               onChange={handleChange}
             />
           </div>
+          <p className="wrong-pass">{message}</p>
           <div className="inp-3">
             <input
               type="checkbox"
-              required
               checked={isChecked} // Use the state variable to determine the checked status
               onChange={handleCheckboxChange}
             />
-               {/* <p>Checkbox is {isChecked ? 'checked' : 'unchecked'}</p> */}
 
             <h4>Remember me</h4>
-            <h5><Link to="">Forgot password?</Link></h5>
+            <h5>
+              <Link to="">Forgot password?</Link>
+            </h5>
           </div>
-          <button id="login-btn" className="btn btn-primary">Login</button>
+          <button id="login-btn" className="btn btn-primary">
+            Login
+          </button>
           <div className="login-to-reg">
-          <Link to="/signup" >Create account</Link>
+            <Link to="/signup">Create account</Link>
           </div>
-           </form>
+          <p>{message}</p>
+        </form>
       </div>
     </div>
   );
