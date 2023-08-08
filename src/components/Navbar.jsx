@@ -5,13 +5,24 @@ import { faXmark, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faChartSimple, faGraduationCap, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import image from "../assets/image 1.png";
 import reagan from "../assets/reagan.jpg";
+import { useCallback } from "react";
+import { connect } from "react-redux";
+import { saveAuthToken } from "../redux/Auth/auth-actions";
+import { useHistory } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({saveToken}) => {
   const [nav, setNav] = useState(false);
+  const history = useHistory();
 
   const handleNav = () => {
     setNav(!nav);
   };
+  
+  const userName = localStorage.getItem('username');
+  const handleLogout = useCallback(() => {
+    saveToken("");
+    history.push("/login")
+  }, [saveToken]);
 
   nav
     ? (document.body.style.overflowX = "hidden")
@@ -29,7 +40,7 @@ const Navbar = () => {
           <ul>
             <li className="nav-link">
               <img src={reagan} className="reg" alt="user" />
-              <span className="user-name"> Omoade Mary</span>
+              <span className="user-name"> {userName}</span>
             </li>
 
             <div onClick={handleNav} className="zaracho">
@@ -62,6 +73,12 @@ const Navbar = () => {
                   <span> <FontAwesomeIcon icon={faUserPen} className="fontawesome-sidebar"/></span>  Profile
                   </NavLink>
                 </li>
+
+                <hr className="hop" />
+                <li>
+                  <button onClick={handleLogout} className="btn btn-danger">Logout</button>
+                </li>
+                
               </ul>
             </div>
           ) : null}
@@ -71,4 +88,16 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveToken: (token) => dispatch(saveAuthToken(token)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

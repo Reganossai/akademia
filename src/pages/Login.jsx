@@ -2,10 +2,11 @@ import React from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
+import { connect } from "react-redux";
+import { saveAuthToken } from "../redux/Auth/auth-actions";
 
-const Login = () => {
+const Login = ({saveToken}) => {
   const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const history = useHistory();
@@ -48,9 +49,11 @@ const Login = () => {
       data: body,
     })
       .then((response) => {
-        // const token = response.data.data.token;
-        // const saveUserToken = localStorage.setItem("user-token", token);
-
+         const token = response.data.token;
+         const username = response.data.user.fullname;
+         const saveUsernameInLocalStorage = localStorage.setItem("username", username);
+        const saveUserTokenInLocalStorage = localStorage.setItem("user-token", token);
+        saveToken(token);
         setLoading(false);
         console.log(response.data);
         if (response.data.message === "Invalid password") {
@@ -67,7 +70,6 @@ const Login = () => {
         console.log(error);
       }) .finally(() => {
         setLoading(false);
-        
       });
   };
 
@@ -134,11 +136,20 @@ const Login = () => {
           <div className="login-to-reg">
             <Link to="/signup">Create account</Link>
           </div>
-          <p>{message}</p>
+         
         </form>
       </div>
     </div>
   );
 };
 
-export default Login;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveToken: (token) => dispatch(saveAuthToken(token)),
+  };
+};
+
+
+
+export default connect(null, mapDispatchToProps)(Login);

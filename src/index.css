@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+.wrong-pass{
+  margin: 15px 0px 0px 20px;
+  font-size: 15px;
+ font-weight: bold;
+ color: crimson;
+}
+
 .bg {
   background-image: url("https://s3-alpha-sig.figma.com/img/6879/7f6c/84f4b00ffa845154f7ca23fa27a50779?Expires=1691971200&Signature=bY-RF~2yZ4aQfKOIp927M59CFgveMy5MbS0f55M58nvmre80k-uYYTh673TIZNoVCOYZy-XBRs3MT9-wEII6i1CHX~25xNN76DCiYVE-dpcPxbqyD40UYFMSrKucmHHS600JhpUILq2Jp-k2P2L38sAvHM5ex6dBXlK1yt77xo5CXMnZVRxvfeFRKYog50Jpy9-LNrfRRaA36IsXYb~eGf7R683lYsRloYkAnmTeRrdvoyA~pAI7CqvOYkP57kOyioshI~udSem51iBGJZ2wie4vmjs7RkVkVfo7zpEcX-QsAaPdfFxlMHsBSb--O37E32zxXC6dHj~4cRaydplBYQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
   position: absolute;
@@ -30,19 +37,30 @@
   margin: 0px 0px 20px 0px;
 }
 
-.aka-1 a{
+.lolade{
+  margin: 20px 0px 0px 50px;
+}
+
+#aka-1{
+  width: 110px;
+  margin: 0px 0px 0px 0px;
+ 
+}
+
+#aka-1 a{
+  color: white;
   text-decoration: none;
-  margin: 30px 0px 10px 80px;
-  color: black;
-  font-family: monospace;
 }
 
 
-.aka-2 a{
+#aka-2 {
+  width: 100px;
+  margin: 0px 0px 0px 30px;
+}
+
+#aka-2 a{
+  color: white;
   text-decoration: none;
-  margin: 30px 0px 10px 80px;
-  color: black;
-  font-family: monospace;
 }
 
 

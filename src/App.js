@@ -9,48 +9,80 @@ import Personalinformation from "./components/Personalinformation";
 import Guardianinformation from "./components/Guardianinformation";
 import Previouseducation from "./components/Previouseducation";
 import Landingpage from "./pages/Landingpage";
+import { connect } from "react-redux";
+import { saveAuthToken } from "./redux/Auth/auth-actions";
 
 import { ToastContainer } from "react-toastify";
 
-function App() {
+function App({ token, saveToken }) {
+
+  const setUserTokenToReduxStateFromLocalStorage = useCallback(() => {
+    const storedToken = localStorage.getItem("user-token");
+    if (storedToken) {
+      saveToken(storedToken);
+    }
+  }, [saveToken]);
 
   return (
-    
     <div className="App">
-    <ToastContainer />
+      <ToastContainer />
+      {token ? (
+        <div>
         <BrowserRouter>
           <Switch>
-          <Route exact path="/">
-              <Landingpage/>
-            </Route>
-            <Route path="/login">
-              <Login/>
-            </Route>
-            <Route path="/signup">
-              <Register/>
-            </Route>
             <Route path="/dashboard">
-              <Dashboard/>
+              <Dashboard />
             </Route>
             <Route path="/admission">
-              <Admission/>
+              <Admission />
             </Route>
             <Route path="/personal-information">
-              <Personalinformation/>
+              <Personalinformation />
             </Route>
-            
+
             <Route path="/guardian-information">
-              <Guardianinformation/>
+              <Guardianinformation />
             </Route>
-            
+
             <Route path="/previous-education">
-              <Previouseducation/>
+              <Previouseducation />
             </Route>
-            
           </Switch>
         </BrowserRouter>
+        </div>
+      ) : (
+
+        <div>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/">
+              <Landingpage />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <Register />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+        </div>
+      )}
     </div>
   );
 }
 
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveToken: (token) => dispatch(saveAuthToken(token)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -3,13 +3,14 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { Link } from "react-router-dom";
 
-const Dashboard = () => {
+const Dashboard = ({username}) => {
+  const userName = localStorage.getItem('username');
   return (
     <div className="dashboard-div">
       <Navbar />
       <Sidebar />
       <div className="ovrl">
-        <h1>Welcome, James!</h1>
+        <h1>Welcome, {userName}</h1>
         <h6>Start Managing your Admission Process</h6>
         <div className="admission-status-flex">
           <div className="admission-status">
@@ -25,5 +26,6 @@ const Dashboard = () => {
     </div>
   );
 };
+
 
 export default Dashboard;

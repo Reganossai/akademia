@@ -3,18 +3,22 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Menu from "./Menu";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const Personalinformation = () => {
+  const history = useHistory();
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    othername: "",
+    firstName: "",
+    lastName: "",
+    otherName: "",
     email: "",
     phone: "",
     gender: "",
     dob: "",
     address: "",
     select: "",
+    picture: null,
   });
 
   const handleChange = (event) => {
@@ -25,6 +29,29 @@ const Personalinformation = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, picture: e.target.files[0] });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formDataToSend = new FormData();
+    for (const key in formData) {
+      formDataToSend.append(key, formData[key]);
+    }
+
+    try {
+      const response = await axios.post('http://localhost:8080/personal-information', formDataToSend);
+      console.log(response.data);
+      // Handle success or show a success message to the user
+      history.push("/guardian-information")
+    } catch (error) {
+      console.error(error);
+      // Handle error or show an error message to the user
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -33,40 +60,40 @@ const Personalinformation = () => {
         <h1>Admission Form</h1>
         <h6>Start Applying for Admission </h6>
         <Menu />
-        <form>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="three-flex">
             <div className="inp-2">
-              <label htmlFor="firstname">First Name</label>
+              <label htmlFor="firstName">First Name</label>
               <input
                 type="text"
                 placeholder="First Name"
-                name="firstname"
+                name="firstName"
                 required
-                value={formData.firstname}
+                value={formData.firstName}
                 onChange={handleChange}
               />
             </div>
 
             <div className="inp-2">
-              <label htmlFor="lastname">Last Name</label>
+              <label htmlFor="lastName">Last Name</label>
               <input
                 type="text"
                 placeholder="Last Name"
-                name="lastname"
+                name="lastName"
                 required
-                value={formData.lastname}
+                value={formData.lastName}
                 onChange={handleChange}
               />
             </div>
 
             <div className="inp-2">
-              <label htmlFor="othername">Other Name</label>
+              <label htmlFor="otherName">Other Name</label>
               <input
                 type="text"
                 placeholder="Other Name"
-                name="othername"
+                name="otherName"
                 required
-                value={formData.othername}
+                value={formData.otherName}
                 onChange={handleChange}
               />
             </div>
@@ -152,14 +179,15 @@ const Personalinformation = () => {
               <input
                 type="file"
                 placeholder="Passport"
-                name="passport"
+                name="picture"
+                onChange={handleFileChange}
                 required
               />
             </div>
           </div>
 
-          <button className="btn btn-primary" id="bt-next">
-            <Link to="guardian-information">Next</Link>
+          <button type="submit" className="btn btn-primary" id="bt-next">
+        Next
           </button>
         </form>
       </div>

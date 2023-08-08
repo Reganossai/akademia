@@ -8,15 +8,10 @@ const Landingpage = () => {
         <div className='bg'></div>
         <div className='bgg'>
             <img src={image} className="aka" alt='opp'/>
-            <h1 className='aka-1'><Link to='/login'>Login</Link></h1>
-            
-            <h1 className='aka-2'><Link to='/signup'>Register</Link></h1>
-            
-            <h1 className='aka-3'><Link to='/dashboard'>Dashboard</Link></h1>
-     
-            <h1 className='aka-4'><Link to='/admission'>Admission</Link></h1>
-
-            
+            <div className='lolade'>
+            <button id="aka-1" className='btn btn-primary'><Link to='/login'>Login</Link></button>
+            <button id="aka-2" className='btn btn-danger'><Link to='/signup'>Register</Link></button>
+            </div>
         </div>
 
     </div>
