@@ -45,7 +45,7 @@ const Login = ({saveToken}) => {
 
     axios({
       method: "post",
-      url: "https://akademia-backend.onrender.com",
+      url: "http://localhost:8080/login",
       data: body,
     })
       .then((response) => {

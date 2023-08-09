@@ -35,7 +35,7 @@ const Previouseducation = () => {
 
     try {
       const response = await axios.post(
-        "https://akademia-backend.onrender.com",
+        "http://localhost:8080/previous-education",
         formDataToSend
       );
       console.log(response.data);

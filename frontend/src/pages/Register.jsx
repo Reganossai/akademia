@@ -40,7 +40,7 @@ const Register = () => {
 
     axios({
       method: "post",
-      url: "https://akademia-backend.onrender.com",
+      url: "http://localhost:8080/register",
       data: body,
     })
       .then((response) => {

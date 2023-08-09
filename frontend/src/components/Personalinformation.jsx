@@ -42,7 +42,7 @@ const Personalinformation = () => {
     }
 
     try {
-      const response = await axios.post('https://akademia-backend.onrender.com', formDataToSend);
+      const response = await axios.post('http://localhost:8080/personal-information', formDataToSend);
       console.log(response.data);
       // Handle success or show a success message to the user
       history.push("/guardian-information")
