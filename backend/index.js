@@ -44,7 +44,7 @@ const uploadForm1 = multer({ storage: storage });
 
 const uploadForm2 = multer({ storage: storage });
 
-app.get("/", (req, res) => {
+app.get("/api/get", (req, res) => {
   const sqlGet = "SELECT * FROM register_db";
   db.query(sqlGet, (error, result) => {
     res.send(result);
