@@ -276,11 +276,16 @@ label {
 }
 
 #navbarSupportedContent {
-  margin: 15px 0px 0px 600px;
+  margin: 15px 0px 0px 450px;
 }
 
 #navbarSupportedContent ul {
   display: flex;
+}
+
+#navbarSupportedContent li{
+  margin: 0px 10px 0px 10px;
+  list-style-type: none;
 }
 
 
@@ -481,6 +486,11 @@ label {
     display: flex;
     width: 100%;
   }
+
+  
+.lolade{
+  margin: 20px 0px 0px 25px;
+}
 
   .logoo {
     margin: 3px 0px 0px 30px;

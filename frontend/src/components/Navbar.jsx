@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faChartSimple, faGraduationCap, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import image from "../assets/image 1.png";
-import reagan from "../assets/reagan.jpg";
+import user from "../assets/user.png";
 import { useCallback } from "react";
 import { connect } from "react-redux";
 import { saveAuthToken } from "../redux/Auth/auth-actions";
@@ -38,10 +38,16 @@ const Navbar = ({saveToken}) => {
 
         <div id="navbarSupportedContent">
           <ul>
+            
             <li className="nav-link">
-              <img src={reagan} className="reg" alt="user" />
+              <img src={user} className="reg" alt="user" />
               <span className="user-name"> {userName}</span>
             </li>
+
+            <li>
+              <button className="btn btn-primary" onClick={handleLogout}>Log out</button>
+            </li>
+
 
             <div onClick={handleNav} className="zaracho">
               {nav ? (

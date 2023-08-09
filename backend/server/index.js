@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Configure multer for file uploads
+// Configure multer for file uploads as middleware
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
      // Choose the appropriate destination based on the form
