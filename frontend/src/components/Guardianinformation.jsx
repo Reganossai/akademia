@@ -47,7 +47,7 @@ const Guardianinformation = () => {
       guardianAddress: formData.guardianAddress,
       occupation: formData.occupation,
     };
-      const response = await axios.post('http://localhost:8080/guardian-information', body);
+      const response = await axios.post('https://akademia-backend.onrender.com', body);
       console.log(response.data);
       // Handle success or show a success message to the user
       history.push("/previous-education")
