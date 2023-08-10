@@ -45,7 +45,7 @@ const App = ({ saveToken }) => {
 
     axios({
       method: "post",
-      url: "https://akademia-backend.onrender.com/login",
+      url: "https://akademia-back.onrender.com/login",
       data: body,
     })
       .then((response) => {
