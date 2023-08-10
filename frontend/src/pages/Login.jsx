@@ -4,8 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import { saveAuthToken } from "../redux/Auth/auth-actions";
+import { ROUTES } from "../constants/routes.constants";
 
-const Login = ({saveToken}) => {
+const App = ({ saveToken }) => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +37,6 @@ const Login = ({saveToken}) => {
   const result = (e) => {
     e.preventDefault();
     setLoading(true);
-   
 
     const body = {
       email: formData.email,
@@ -45,14 +45,16 @@ const Login = ({saveToken}) => {
 
     axios({
       method: "post",
-      url: "http://localhost:8080/login",
+      url: "https://akademia-backend.onrender.com/login",
       data: body,
     })
       .then((response) => {
-         const token = response.data.token;
-         const username = response.data.user.fullname;
-         const saveUsernameInLocalStorage = localStorage.setItem("username", username);
-        const saveUserTokenInLocalStorage = localStorage.setItem("user-token", token);
+        const token = response.data.token;
+
+        const saveUserTokenInLocalStorage = localStorage.setItem(
+          "user-token",
+          token
+        );
         saveToken(token);
         setLoading(false);
         console.log(response.data);
@@ -63,12 +65,18 @@ const Login = ({saveToken}) => {
           setMessage("User Doesn't exist");
         }
         if (response.data.message === "logged in successfully") {
+          const username = response.data.user.fullname;
+          const saveUsernameInLocalStorage = localStorage.setItem(
+            "username",
+            username
+          );
           history.push("/dashboard");
         }
       })
       .catch((error) => {
         console.log(error);
-      }) .finally(() => {
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
@@ -134,15 +142,13 @@ const Login = ({saveToken}) => {
             Login
           </button>
           <div className="login-to-reg">
-            <Link to="/signup">Create account</Link>
+            <Link to={ROUTES.SIGNUP}>Create account</Link>
           </div>
-         
         </form>
       </div>
     </div>
   );
 };
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -150,6 +156,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-
-
-export default connect(null, mapDispatchToProps)(Login);
+export const Login = connect(null, mapDispatchToProps)(App);

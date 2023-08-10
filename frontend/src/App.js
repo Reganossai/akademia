@@ -1,20 +1,16 @@
 import "./App.css";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Admission from "./pages/Admission";
-import Personalinformation from "./components/Personalinformation";
-import Guardianinformation from "./components/Guardianinformation";
-import Previouseducation from "./components/Previouseducation";
-import Landingpage from "./pages/Landingpage";
 import { connect } from "react-redux";
 import { saveAuthToken } from "./redux/Auth/auth-actions";
-
 import { ToastContainer } from "react-toastify";
+import { AuthenticatedRoutes, GuestRoutes } from "./routes";
+import { HomePage } from "./pages";
+import { Loading } from "./components";
+import { ROUTES } from "./constants/routes.constants";
 
-function App({ token, saveToken }) {
+function App({ saveToken }) {
+  const [appReady, setAppReady] = useState(false);
 
   const setUserTokenToReduxStateFromLocalStorage = useCallback(() => {
     const storedToken = localStorage.getItem("user-token");
@@ -23,61 +19,38 @@ function App({ token, saveToken }) {
     }
   }, [saveToken]);
 
+  const handleAppLoad = useCallback(() => {
+    setUserTokenToReduxStateFromLocalStorage();
+    setAppReady(true);
+  }, [saveToken]);
+
+  useEffect(() => {
+    handleAppLoad();
+  }, [handleAppLoad]);
+
+  if (!appReady) {
+    return <Loading />;
+  }
+
   return (
     <div className="App">
       <ToastContainer />
-      {token ? (
-        <div>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-            <Route path="/admission">
-              <Admission />
-            </Route>
-            <Route path="/personal-information">
-              <Personalinformation />
-            </Route>
-
-            <Route path="/guardian-information">
-              <Guardianinformation />
-            </Route>
-
-            <Route path="/previous-education">
-              <Previouseducation />
-            </Route>
-          </Switch>
-        </BrowserRouter>
-        </div>
-      ) : (
-
-        <div>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/">
-              <Landingpage />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <Register />
-            </Route>
-          </Switch>
-        </BrowserRouter>
-        </div>
-      )}
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route path={ROUTES.AUTH}>
+            <GuestRoutes />
+          </Route>
+          <Route path={ROUTES.DASHBOARD}>
+            <AuthenticatedRoutes />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
-
-
-const mapStateToProps = (state) => {
-  return {
-    token: state.auth.token,
-  };
-};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -85,4 +58,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

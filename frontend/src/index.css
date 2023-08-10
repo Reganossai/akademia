@@ -275,6 +275,10 @@ label {
 
 }
 
+#logout-bt-desktop{
+  display: block;
+}
+
 #navbarSupportedContent {
   margin: 15px 0px 0px 450px;
 }
@@ -322,7 +326,8 @@ label {
 
 .user-name {
   font-weight: 600;
-  margin: 0px 0px 0px 10px;
+  margin: 0px 10px 0px 10px;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .sidebar-div {
@@ -476,6 +481,11 @@ label {
   text-decoration: none;
 }
 
+.reg-succ-p{
+  margin: 0px 10px 30px 20px;
+  font-weight: 600;
+}
+
 
 
 
@@ -485,6 +495,10 @@ label {
   .navbar{
     display: flex;
     width: 100%;
+  }
+
+  #logout-bt-desktop{
+    display: none;
   }
 
   
@@ -499,7 +513,7 @@ label {
   }
   
   #navbarSupportedContent {
-    margin: 15px 0px 0px 0px;
+    margin: 15px 0px 0px -180px;
   }
   
   #navbarSupportedContent ul {
@@ -553,7 +567,7 @@ label {
   
   .powerfield {
     padding: 0px 0px 0px 5px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 0px 0px -150px;
     font-size: 10px;
     font-weight: 700;
     border-left: 3px solid orange;

@@ -9,6 +9,7 @@ import { useCallback } from "react";
 import { connect } from "react-redux";
 import { saveAuthToken } from "../redux/Auth/auth-actions";
 import { useHistory } from "react-router-dom";
+import { ROUTES } from "../constants/routes.constants";
 
 const Navbar = ({saveToken}) => {
   const [nav, setNav] = useState(false);
@@ -21,7 +22,7 @@ const Navbar = ({saveToken}) => {
   const userName = localStorage.getItem('username');
   const handleLogout = useCallback(() => {
     saveToken("");
-    history.push("/login")
+    history.push(ROUTES.LOGIN)
   }, [saveToken]);
 
   nav
@@ -45,7 +46,7 @@ const Navbar = ({saveToken}) => {
             </li>
 
             <li>
-              <button className="btn btn-primary" onClick={handleLogout}>Log out</button>
+              <button id="logout-bt-desktop" className="btn btn-primary" onClick={handleLogout}>Log out</button>
             </li>
 
 
@@ -68,7 +69,7 @@ const Navbar = ({saveToken}) => {
                 </li>
                 <hr className="hop" />
                 <li id="adm">
-                  <NavLink activeClassName="active" to="/admission">
+                  <NavLink activeClassName="active" to={ROUTES.ADMISSION}>
                   <span> <FontAwesomeIcon icon={faGraduationCap} className="fontawesome-sidebar"/></span>  Admission
                   </NavLink>
                 </li>

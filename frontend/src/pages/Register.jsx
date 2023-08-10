@@ -3,8 +3,9 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ROUTES } from "../constants/routes.constants";
 
-const Register = () => {
+export const Register = () => {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,7 +50,7 @@ const Register = () => {
           setMessage('User With The Email Inputed Already Exists');
         }
         if(response.data.message === "User registered successfully."){
-          history.push('/login');
+          history.push('/registration-successfull');
         }
         }
       )
@@ -129,7 +130,7 @@ const Register = () => {
             Sign Up
           </button>
           <div className="reg-to-login">
-            <Link className="first-link" to="/login">
+            <Link className="first-link" to={ROUTES.LOGIN}>
               Have an account?
             </Link>
             <span className="register-login-span">
@@ -142,4 +143,3 @@ const Register = () => {
   );
 };
 
-export default Register;

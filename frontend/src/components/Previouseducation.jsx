@@ -5,7 +5,7 @@ import Menu from "./Menu";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const Previouseducation = () => {
+export const Previouseducation = () => {
   const history = useHistory();
   const [formData, setFormData] = useState({
     name: "",
@@ -40,7 +40,7 @@ const Previouseducation = () => {
       );
       console.log(response.data);
       // Handle success or show a success message to the user
-      history.push("/guardian-information");
+      history.push("/admission-success");
     } catch (error) {
       console.error(error);
       // Handle error or show an error message to the user
@@ -100,4 +100,3 @@ const Previouseducation = () => {
   );
 };
 
-export default Previouseducation;

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const Personalinformation = () => {
+export const Personalinformation = () => {
   const history = useHistory();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -194,5 +194,3 @@ const Personalinformation = () => {
     </div>
   );
 };
-
-export default Personalinformation;

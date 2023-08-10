@@ -2,8 +2,9 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { Link } from "react-router-dom";
+import { ROUTES } from "../constants";
 
-const Dashboard = ({username}) => {
+export const Dashboard = ({username}) => {
   const userName = localStorage.getItem('username');
   return (
     <div className="dashboard-div">
@@ -16,7 +17,7 @@ const Dashboard = ({username}) => {
           <div className="admission-status">
             <h4>Admission Status</h4>
             <h4 className="hawai">No Admission Data</h4>
-            <Link to="/admission">Apply Now</Link>
+            <Link to={ROUTES.ADMISSION}>Apply Now</Link>
           </div>
           <div className="general-info">
             <h4>The school General Info will appear here</h4>
@@ -28,4 +29,3 @@ const Dashboard = ({username}) => {
 };
 
 
-export default Dashboard;

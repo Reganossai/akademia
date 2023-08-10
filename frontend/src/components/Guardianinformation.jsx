@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const Guardianinformation = () => {
+export const Guardianinformation = () => {
   const history = useHistory();
   const [formData, setFormData] = useState({
     guardianFirstName: "",
@@ -187,5 +187,3 @@ const Guardianinformation = () => {
     </div>
   );
 };
-
-export default Guardianinformation;

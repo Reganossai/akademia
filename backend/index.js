@@ -10,13 +10,10 @@ const multer = require("multer");
 require("dotenv").config(); // Load environment variables from .env file
 
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "Holahmola!1",
-  database: "akademia",
-  // waitForConnections: true,
-  // connectionLimit: 10,
-  // queueLimit: 0
+  host: process.env.host,
+  user: process.env.user,
+  password: process.env.password,
+  database: process.env.database,
 });
 
 // Secret key for JWT (keep this secret and do not hardcode it)
@@ -29,8 +26,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Configure multer for file uploads as middleware
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-     // Choose the appropriate destination based on the form
-     const formName = req.path === '/personal-information' ? 'personal-information' : 'previous-education';
+    // Choose the appropriate destination based on the form
+    const formName =
+      req.path === "/personal-information"
+        ? "personal-information"
+        : "previous-education";
     cb(null, "Images");
   },
   filename: (req, file, cb) => {
@@ -39,16 +39,21 @@ const storage = multer.diskStorage({
   },
 });
 
-
 const uploadForm1 = multer({ storage: storage });
 
 const uploadForm2 = multer({ storage: storage });
 
-app.get("/api/get", (req, res) => {
-  const sqlGet = "SELECT * FROM register_db";
-  db.query(sqlGet, (error, result) => {
-    res.send(result);
-  });
+app.get("/api/get", async (req, res) => {
+  try {
+    const sqlGet = "SELECT * FROM register_db";
+    const [rows] = await db.query(sqlGet);
+    res.status(200).send({
+      message: "data fetched",
+      data: rows,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 
 app.post("/register", async (req, res) => {
@@ -82,7 +87,7 @@ app.post("/register", async (req, res) => {
     return res.status(201).json({ message: "User registered successfully." });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Error processing request." });
+    return res.status(400).json(error);
   }
 });
 
@@ -111,7 +116,7 @@ app.post("/login", async (req, res) => {
     return res.send({ message: "logged in successfully", token, user });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Error processing request." });
+    return res.status(400).json(error);
   }
 });
 
@@ -154,7 +159,7 @@ app.post(
         .json({ message: "Form data submitted successfully." });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ error: "Error processing request." });
+      return res.status(400).json(error);
     }
   }
 );
@@ -192,32 +197,32 @@ app.post("/guardian-information", async (req, res) => {
       .json({ message: "Form data submitted successfully." });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Error processing request." });
+    return res.status(400).json(error);
   }
 });
 
-app.post("/previous-education", uploadForm2.single("previousResult"), async (req, res) => {
-  const { name, selectClass } = req.body;
+app.post(
+  "/previous-education",
+  uploadForm2.single("previousResult"),
+  async (req, res) => {
+    const { name, selectClass } = req.body;
 
-  const picturePath = req.file ? req.file.path : null;
+    const picturePath = req.file ? req.file.path : null;
 
-  try {
-    const sqlInsert =
-      "INSERT INTO previous_education(name,select_class, picture_path) VALUES (?, ?, ?)"; 
-    await db.query(sqlInsert, [
-     name,
-     selectClass,
-      picturePath,
-    ]);
+    try {
+      const sqlInsert =
+        "INSERT INTO previous_education(name,select_class, picture_path) VALUES (?, ?, ?)";
+      await db.query(sqlInsert, [name, selectClass, picturePath]);
 
-    return res
-      .status(201)
-      .json({ message: "Form data submitted successfully." });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Error processing request." });
+      return res
+        .status(201)
+        .json({ message: "Form data submitted successfully." });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json(error);
+    }
   }
-});
+);
 
 app.listen(8080, () => {
   console.log("server is running on port 8080");
