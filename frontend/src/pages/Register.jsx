@@ -41,7 +41,7 @@ export const Register = () => {
 
     axios({
       method: "post",
-      url: "http://localhost:8080/register",
+      url: "https://akademia-back.onrender.com/register",
       data: body,
     })
       .then((response) => {

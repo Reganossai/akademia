@@ -19,7 +19,7 @@ const db = mysql.createPool({
 // Secret key for JWT (keep this secret and do not hardcode it)
 const secretKey = process.env.JWT_SECRET_KEY;
 
-app.use(cors({origin: 'https://localhost:3001', credentials: true}))
+app.use(cors({origin: 'https://akademia-back.onrender.com', credentials: true}))
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
