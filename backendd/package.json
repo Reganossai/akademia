@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"node backendd/index.js",
-    "server":"nodemon backendd/index.js"
+    "start": "node backendd/index.js",
+    "server": "nodemon backendd/index.js"
   },
   "author": "",
   "license": "ISC",
