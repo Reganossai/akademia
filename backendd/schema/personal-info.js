@@ -28,7 +28,10 @@ const personalInformation = mongoose.Schema({
     },
     select : {
         type:String
-    }
+    },
+    picture:{
+        type:String
+    },
 })
 
 

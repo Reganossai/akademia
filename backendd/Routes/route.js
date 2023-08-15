@@ -2,37 +2,24 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const UserSchema = require("../schema/user");
-const personalInformation = require("../schema/personal-info")
+const personalInformation = require("../schema/personal-info");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const multer = require("multer");
 const { registration, login } = require("../validation/validation");
 require("dotenv").config(); // Load environment variables from .env file
 
-
-
 // Configure multer for file uploads as middleware
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Choose the appropriate destination based on the form
-    const formName =
-      req.path === "/personal-information"
-        ? "personal-information"
-        : "previous-education";
-    cb(null, "Images");
-  },
+  destination: "../Images",
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
 const uploadForm1 = multer({ storage: storage });
 
 const uploadForm2 = multer({ storage: storage });
-
-
-
 
 // Secret key for JWT (keep this secret and do not hardcode it)
 const secretKey = process.env.JWT_SECRET_KEY;
@@ -52,7 +39,7 @@ router.post("/register", async (req, res) => {
   const checkIfEmailAlreadyExists = await UserSchema.findOne({ email: email });
 
   if (checkIfEmailAlreadyExists) {
-   return res.status(401).json({ message: "email already exist" });
+    return res.status(401).json({ message: "email already exist" });
   }
 
   try {
@@ -61,9 +48,9 @@ router.post("/register", async (req, res) => {
       email: email,
       password: hashedPassword,
     });
-   return res.status(201).json({ myUserData: usersRegistrationData });
+    return res.status(201).json({ myUserData: usersRegistrationData });
   } catch (error) {
-   return res.status(400).json(error);
+    return res.status(400).json(error);
   }
 });
 
@@ -76,65 +63,82 @@ router.post("/login", async (req, res) => {
     return res.status(401).send(error.details[0].message);
   }
 
-  const user = await UserSchema.findOne({email:email});
-
+  const user = await UserSchema.findOne({ email: email });
 
   if (!user) {
-   return res.status(400).send({ message: "User doesn't exist!" });
+    return res.status(400).send({ message: "User doesn't exist!" });
   }
 
-  
   if (user !== null && user.password !== undefined) {
-    
     let password = user.password;
-    
-  // Use bcrypt to compare the provided password with the hashed password in the database
-  const passwordComparison = await bcrypt.compare(req.body.password, password);
 
-  
-  if(passwordComparison){
-    
-    // Issue a JWT token upon successful login
-    const token = jwt.sign({ id: user._id }, secretKey, { expiresIn: "1h" }); // Token expires in 1 hour
-    console.log("token");
-    return res.status(200).json(user);
-  }
-  else{ 
-   return res.status(401).json({message: "Wrong password provided"});
-  }
+    // Use bcrypt to compare the provided password with the hashed password in the database
+    const passwordComparison = await bcrypt.compare(
+      req.body.password,
+      password
+    );
+
+    if (passwordComparison) {
+      // Issue a JWT token upon successful login
+      const token = jwt.sign({ id: user._id }, secretKey, { expiresIn: "1h" }); // Token expires in 1 hour
+      console.log("token");
+      return res.status(200).json(user);
+    } else {
+      return res.status(401).json({ message: "Wrong password provided" });
+    }
 
     // Do something with the password
   } else {
     // Handle the case when user is null or user.password is undefined
-  return  res.status(400).send({message:"User object is null or password property is undefined."});
+    return res
+      .status(400)
+      .send({
+        message: "User object is null or password property is undefined.",
+      });
   }
 });
 
-
-router.post("/personal-information", uploadForm1.single("picture"), async (req, res) => {
-  const {firstName,lastName,otherName,email,phone,gender,address,dob,select} = req.body;
+router.post(
+  "/personal-information",
+  uploadForm1.single("picture"),
+  async (req, res) => {
   
-  const picturePath = req.file ? req.file.path : null;
 
+    try {
+      const {
+        firstName,
+        lastName,
+        otherName,
+        email,
+        phone,
+        gender,
+        address,
+        dob,
+        select,
+      } = req.body;
   
-  try {
-    const usersPersonalInformationData = await personalInformation.create({
-      firstName: firstName,
-      lastName: lastName,
-      otherName: otherName,
-      email: email,
-      phone:phone,
-      gender:gender,
-      address:address,
-      dob:dob,
-      select: select,
-      picturePath:picturePath,
-    });
-   return res.status(201).json({ myUserData: usersPersonalInformationData });
-  } catch (error) {
-   return res.status(400).json(error);
+      const picturePath = req.file.filename;
+
+      const newData = {
+        firstName,
+        lastName,
+        otherName,
+        email,
+        phone,
+        gender,
+        address,
+        dob,
+        select,
+        picture: picturePath,
+    };
+
+   
+    const savedData = await DataModel.create(newData);
+    res.status(201).json(savedData);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   }
-
-});
+);
 
 module.exports = router;
