@@ -2,8 +2,14 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const UserSchema = require("../schema/user");
-
+const jwt = require("jsonwebtoken");
 const { registration, login } = require("../validation/validation");
+require("dotenv").config(); // Load environment variables from .env file
+
+
+
+// Secret key for JWT (keep this secret and do not hardcode it)
+const secretKey = process.env.JWT_SECRET_KEY;
 
 router.post("/register", async (req, res) => {
   const { fullname, email, password } = req.body;
@@ -48,7 +54,7 @@ router.post("/login", async (req, res) => {
 
 
   if (!user) {
-   return res.status(400).send({ message: "Wrong email/password combination" });
+   return res.status(400).send({ message: "User doesn't exist!" });
   }
 
   
@@ -61,10 +67,14 @@ router.post("/login", async (req, res) => {
 
   
   if(passwordComparison){
-   return res.status(200).json(user)
+    
+    // Issue a JWT token upon successful login
+    const token = jwt.sign({ id: user._id }, secretKey, { expiresIn: "1h" }); // Token expires in 1 hour
+    console.log("token");
+    return res.status(200).json(user);
   }
-  else{
-   return res.status(401).json({message: "Wrong email/password combo"});
+  else{ 
+   return res.status(401).json({message: "Wrong password provided"});
   }
 
     // Do something with the password
