@@ -130,7 +130,7 @@ router.post("/personal-information", uploadForm1.single("picture"), async (req, 
       select: select,
       picturePath:picturePath,
     });
-   return res.status(201).json({ myUserData: usersRegistrationData });
+   return res.status(201).json({ myUserData: usersPersonalInformationData });
   } catch (error) {
    return res.status(400).json(error);
   }
