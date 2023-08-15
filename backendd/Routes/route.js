@@ -133,7 +133,7 @@ router.post(
     };
 
    
-    const savedData = await DataModel.create(newData);
+    const savedData = await personalInformation.create(newData);
     res.status(201).json(savedData);
     } catch (error) {
       return res.status(400).json(error);
