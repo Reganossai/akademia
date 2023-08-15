@@ -11,11 +11,20 @@ require("dotenv").config(); // Load environment variables from .env file
 
 // Configure multer for file uploads as middleware
 const storage = multer.diskStorage({
-  destination: "../Images",
+  destination: (req, file, cb) => {
+    // Choose the appropriate destination based on the form
+    const formName =
+      req.path === "/personal-information"
+        ? "personal-information"
+        : "previous-education";
+    cb(null, "../Images");
+  },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
+
 
 const uploadForm1 = multer({ storage: storage });
 
@@ -90,11 +99,9 @@ router.post("/login", async (req, res) => {
     // Do something with the password
   } else {
     // Handle the case when user is null or user.password is undefined
-    return res
-      .status(400)
-      .send({
-        message: "User object is null or password property is undefined.",
-      });
+    return res.status(400).send({
+      message: "User object is null or password property is undefined.",
+    });
   }
 });
 
@@ -102,8 +109,6 @@ router.post(
   "/personal-information",
   uploadForm1.single("picture"),
   async (req, res) => {
-  
-
     try {
       const {
         firstName,
@@ -116,8 +121,8 @@ router.post(
         dob,
         select,
       } = req.body;
-  
-      const picturePath = req.file.filename;
+
+      const picturePath = req.file ? req.file.path : null;
 
       const newData = {
         firstName,
@@ -130,11 +135,10 @@ router.post(
         dob,
         select,
         picture: picturePath,
-    };
+      };
 
-   
-    const savedData = await personalInformation.create(newData);
-    res.status(201).json(savedData);
+      const savedData = await personalInformation.create(newData);
+      res.status(201).json(savedData);
     } catch (error) {
       return res.status(400).json(error);
     }
