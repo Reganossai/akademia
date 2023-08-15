@@ -1,17 +1,35 @@
 const mongoose = require("mongoose");
 
-const userData = mongoose.Schema({
-    fullname : {
+const personalInformation = mongoose.Schema({
+    firstName : {
         type: String,
 
+    },
+    lastName : {
+        type:String
+    },
+    otherName : {
+        type:String
     },
     email : {
         type:String
     },
-    password : {
+    phone : {
+        type:String
+    },
+    gender : {
+        type:String
+    },
+    address : {
+        type:String
+    },
+    dob : {
+        type:String
+    },
+    select : {
         type:String
     }
 })
 
 
-module.exports = mongoose.model("table", userData)
+module.exports = mongoose.model("tableTwo", personalInformation)

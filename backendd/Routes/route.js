@@ -2,9 +2,35 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const UserSchema = require("../schema/user");
+const personalInformation = require("../schema/personal-info")
 const jwt = require("jsonwebtoken");
+const path = require("path");
+const multer = require("multer");
 const { registration, login } = require("../validation/validation");
 require("dotenv").config(); // Load environment variables from .env file
+
+
+
+// Configure multer for file uploads as middleware
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Choose the appropriate destination based on the form
+    const formName =
+      req.path === "/personal-information"
+        ? "personal-information"
+        : "previous-education";
+    cb(null, "Images");
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const uploadForm1 = multer({ storage: storage });
+
+const uploadForm2 = multer({ storage: storage });
+
 
 
 
@@ -82,6 +108,33 @@ router.post("/login", async (req, res) => {
     // Handle the case when user is null or user.password is undefined
   return  res.status(400).send({message:"User object is null or password property is undefined."});
   }
+});
+
+
+router.post("/personal-information", uploadForm1.single("picture"), async (req, res) => {
+  const {firstName,lastName,otherName,email,phone,gender,address,dob,select} = req.body;
+  
+  const picturePath = req.file ? req.file.path : null;
+
+  
+  try {
+    const usersPersonalInformationData = await personalInformation.create({
+      firstName: firstName,
+      lastName: lastName,
+      otherName: otherName,
+      email: email,
+      phone:phone,
+      gender:gender,
+      address:address,
+      dob:dob,
+      select: select,
+      picturePath:picturePath,
+    });
+   return res.status(201).json({ myUserData: usersRegistrationData });
+  } catch (error) {
+   return res.status(400).json(error);
+  }
+
 });
 
 module.exports = router;
