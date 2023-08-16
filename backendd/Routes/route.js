@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const UserSchema = require("../schema/user");
 const personalInformation = require("../schema/personal-info");
 const guardianInformation = require("../schema/guardian-info");
+const previousEducation = require("../schema/previous-education");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const multer = require("multer");
@@ -181,5 +182,38 @@ router.post(
     }
   }
 )
+
+
+
+router.post(
+  "/previous-education",
+  uploadForm2.single("previousResult"),
+  async (req, res) => {
+  
+
+    try {
+      const {
+        name,
+        selectClass,
+      } = req.body;
+  
+
+      const picturePath = req.file ? req.file.path : null;
+
+      const newData = {
+        name,
+        selectClass,
+        previousResult : picturePath,
+    };
+
+   
+    const savedData = await previousEducation.create(newData);
+    res.status(201).json(savedData);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
+);
+
 
 module.exports = router;
