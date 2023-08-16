@@ -42,15 +42,16 @@ export const Personalinformation = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/personal-information', formDataToSend);
+      const response = await axios.post('https://akademia-backend.onrender.com/api/v1/users/personal-information', formDataToSend);
       console.log(response.data);
       // Handle success or show a success message to the user
-      history.push("/guardian-information")
+      history.push("/dasboard/admission/guardian-information")
     } catch (error) {
       console.error(error);
       // Handle error or show an error message to the user
     }
   };
+
 
   return (
     <div>

@@ -41,38 +41,28 @@ export const Register = () => {
 
     axios({
       method: "post",
-      url: "https://akademia-back.onrender.com/register",
+      url: "https://akademia-backend.onrender.com/api/v1/users/register",
       data: body,
     })
       .then((response) => {
         console.log(response.data);
-        if (response.data.message === "User Already Exists") {
-          setMessage('User With The Email Inputed Already Exists');
-        }
-        if(response.data.message === "User registered successfully."){
-          history.push('/registration-successfull');
-        }
+        history.push("/auth/registration-successfull")
         }
       )
       .catch((error) => {
-        console.error(error);
-
+        toast.error(error.response.data.message)
+        
       })
       .finally(() => {
         setLoading(false);
-        setFormData({
-          fullname: "",
-          email: "",
-          password: "",
-        });
-        
+       
       });
   };
 
   if (loading) {
     return (
       <h1 className="login-loading">
-        Please wait while your input is being validated
+        Please wait...
       </h1>
     );
   }

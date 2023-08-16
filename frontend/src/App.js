@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { saveAuthToken } from "./redux/Auth/auth-actions";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthenticatedRoutes, GuestRoutes } from "./routes";
 import { HomePage } from "./pages";
 import { Loading } from "./components";

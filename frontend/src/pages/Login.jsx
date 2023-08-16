@@ -5,6 +5,8 @@ import { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import { saveAuthToken } from "../redux/Auth/auth-actions";
 import { ROUTES } from "../constants/routes.constants";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = ({ saveToken }) => {
   const [message, setMessage] = useState("");
@@ -45,11 +47,11 @@ const App = ({ saveToken }) => {
 
     axios({
       method: "post",
-      url: "https://akademia-back.onrender.com/login",
+      url: "https://akademia-backend.onrender.com/api/v1/users/login",
       data: body,
     })
       .then((response) => {
-        const token = response.data.token;
+        const token = response.data._id;
 
         const saveUserTokenInLocalStorage = localStorage.setItem(
           "user-token",
@@ -58,23 +60,17 @@ const App = ({ saveToken }) => {
         saveToken(token);
         setLoading(false);
         console.log(response.data);
-        if (response.data.message === "Invalid password") {
-          setMessage("wrong username/password combination");
-        }
-        if (response.data.message === "User Doesn't exist") {
-          setMessage("User Doesn't exist");
-        }
-        if (response.data.message === "logged in successfully") {
-          const username = response.data.user.fullname;
-          const saveUsernameInLocalStorage = localStorage.setItem(
-            "username",
-            username
-          );
-          history.push("/dashboard");
-        }
+        const username = response.data.fullname;
+        const saveUsernameInLocalStorage = localStorage.setItem(
+          "username",
+          username
+        );
+        history.push("/dashboard");
       })
       .catch((error) => {
         console.log(error);
+        toast.error(error.response.data.message)
+        
       })
       .finally(() => {
         setLoading(false);
@@ -84,7 +80,7 @@ const App = ({ saveToken }) => {
   if (loading) {
     return (
       <h1 className="login-loading">
-        Please wait while your login credentials are being validated
+        Please wait...
       </h1>
     );
   }
@@ -138,6 +134,9 @@ const App = ({ saveToken }) => {
               <Link to="">Forgot password?</Link>
             </h5>
           </div>
+
+          <p className="err-mess">{message}</p>
+
           <button id="login-btn" className="btn btn-primary">
             Login
           </button>

@@ -20,7 +20,7 @@ const App = ({ token }) => {
         <Route path={ROUTES.SIGNUP}>
           <Register />
         </Route>
-        <Route path="/auth/registration-successfull">
+        <Route path={ROUTES.REGISTRATION_SUCCESSFULL}>
           <Registrationsuccess />
         </Route>
       </Switch>

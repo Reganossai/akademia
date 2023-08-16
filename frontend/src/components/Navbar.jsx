@@ -31,7 +31,7 @@ const Navbar = ({saveToken}) => {
   return (
     <div className="nav-usa">
       <nav className="navbar navbar-expand-lg">
-        <Link to="/">
+        <Link to={ROUTES.DASHBOARD}>
           <img src={image} className="logoo" alt="logoo" />
         </Link>
 
@@ -76,7 +76,7 @@ const Navbar = ({saveToken}) => {
 
                 <hr className="hop" />
                 <li id="prof">
-                  <NavLink activeClassName="active" to="/login">
+                  <NavLink activeClassName="active" to="#">
                   <span> <FontAwesomeIcon icon={faUserPen} className="fontawesome-sidebar"/></span>  Profile
                   </NavLink>
                 </li>
