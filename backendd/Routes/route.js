@@ -12,14 +12,7 @@ require("dotenv").config(); // Load environment variables from .env file
 
 // Configure multer for file uploads as middleware
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Choose the appropriate destination based on the form
-    const formName =
-      req.path === "/personal-information"
-        ? "personal-information"
-        : "previous-education";
-    cb(null, "Images");
-  },
+  destination: "../backendd/Images",
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
   },
