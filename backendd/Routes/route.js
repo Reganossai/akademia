@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
       req.path === "/personal-information"
         ? "personal-information"
         : "previous-education";
-    cb(null, "../backendd/Images");
+    cb(null, "./Images");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
