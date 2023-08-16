@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const UserSchema = require("../schema/user");
 const personalInformation = require("../schema/personal-info");
+const guardianInformation = require("../schema/guardian-info");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const multer = require("multer");
@@ -11,7 +12,14 @@ require("dotenv").config(); // Load environment variables from .env file
 
 // Configure multer for file uploads as middleware
 const storage = multer.diskStorage({
-  destination: "../backendd/Images",
+  destination: (req, file, cb) => {
+    // Choose the appropriate destination based on the form
+    const formName =
+      req.path === "/personal-information"
+        ? "personal-information"
+        : "previous-education";
+    cb(null, "../backendd/Images");
+  },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
   },
@@ -117,7 +125,8 @@ router.post(
         select,
       } = req.body;
   
-      const picturePath = req.file.filename;
+
+      const picturePath = req.file ? req.file.path : null;
 
       const newData = {
         firstName,
@@ -140,5 +149,44 @@ router.post(
     }
   }
 );
+
+router.post(
+  "/guardian-information",
+  async (req, res) => {
+  
+
+    try {
+      const {
+        guardianFirstName,
+        guardianLastName,
+        relationship,
+        guardianEmail,
+        guardianPhone,
+        nationality,
+        guardianAddress,
+        occupation,
+      } = req.body;
+  
+
+
+      const newData = {
+        guardianFirstName,
+        guardianLastName,
+        relationship,
+        guardianEmail,
+        guardianPhone,
+        nationality,
+        guardianAddress,
+        occupation,
+    };
+
+   
+    const savedData = await guardianInformation.create(newData);
+    res.status(201).json(savedData);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
+)
 
 module.exports = router;
